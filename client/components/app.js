@@ -2,6 +2,7 @@ import React from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 import Navbar from './navbar'
+import Todos from './todos'
 import Footer from './footer'
 import PageNotFound from './pageNotFound'
 
@@ -10,10 +11,9 @@ const App = () => (
     <div>
       <Navbar />
       <main>
-        <h1>Better TODO</h1>
         <Switch>
           {/* <Route exact path="/" component={Campuses} /> */}
-          <Route exact path="/" />
+          <Route exact path="/" component={Todos} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </main>

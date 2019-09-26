@@ -8,7 +8,7 @@ const Navbar = () => {
       <nav className="z-depth-0">
         <div className="nav-wrapper container">
           <a href="/">
-            Food<span>Ninja</span>
+            A Better<span>TODO</span>
           </a>
           <span className="right grey-text text-darken-1">
             <i
