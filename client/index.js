@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import App from './components/app'
 import store from './store'
-import * as serviceWorker from './serviceWorker'
 
 // establishes socket connection
 // import './socket'
@@ -15,4 +14,9 @@ ReactDOM.render(
   document.getElementById('App')
 )
 
-serviceWorker.register()
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/serviceWorker.js')
+    .then(reg => console.log('service worker registered', reg))
+    .catch(err => console.log('service worker not registered', err))
+}
