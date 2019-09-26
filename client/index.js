@@ -1,7 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
+import App from './components/app'
+import store from './store'
+// establishes socket connection
+// import './socket'
 
 ReactDOM.render(
-  <div>Hello, world again!</div>,
-  document.getElementById('app') // make sure this is the same as the id of the div in your index.html
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('App')
 )
