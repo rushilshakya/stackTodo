@@ -1,8 +1,10 @@
 const staticCacheName = 'site-static'
 const assets = [
   '/',
+  '/about',
+  '/contact',
   '/index.html',
-  '/js/app.js',
+  '/bundle.js',
   '/js/ui.js',
   '/js/materialize.min.js',
   '/css/styles.css',
