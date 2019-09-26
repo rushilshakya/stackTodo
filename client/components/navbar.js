@@ -32,7 +32,7 @@ const Navbar = () => {
           </a>
         </li>
         <li>
-          <a href="/pages/about.html" className="waves-effect">
+          <a href="/about" className="waves-effect">
             About
           </a>
         </li>
@@ -40,7 +40,7 @@ const Navbar = () => {
           <div className="divider"></div>
         </li>
         <li>
-          <a href="/pages/contact.html" className="waves-effect">
+          <a href="contact" className="waves-effect">
             <i className="material-icons">mail_outline</i>Contact
           </a>
         </li>
