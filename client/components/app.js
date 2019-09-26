@@ -1,6 +1,8 @@
 import React from 'react'
-import Navbar from './navbar'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+
+import Navbar from './navbar'
+import Footer from './footer'
 import PageNotFound from './pageNotFound'
 
 const App = () => (
@@ -15,6 +17,7 @@ const App = () => (
           <Route path="*" component={PageNotFound} />
         </Switch>
       </main>
+      <Footer />
     </div>
   </Router>
 )

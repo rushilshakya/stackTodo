@@ -1,10 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Link, Route, Switch, Redirect} from 'react-router-dom'
+// import {connect} from 'react-redux'
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
+    <div>
       {/* top nav */}
       <nav className="z-depth-0">
         <div className="nav-wrapper container">
@@ -46,7 +45,7 @@ const Navbar = () => {
           </a>
         </li>
       </ul>
-    </nav>
+    </div>
   )
 }
 
