@@ -41,3 +41,18 @@ db.collection('todos').onSnapshot(snapshot => {
     }
   })
 })
+
+//adding to firebase
+export const addTodoFirebase = todo => {
+  db.collection('todos')
+    .add(todo)
+    .catch(err => console.log(err))
+}
+
+//removing from firebase
+export const removeTodoFirebase = todoId => {
+  db.collection('todos')
+    .doc(todoId)
+    .delete()
+    .catch(err => console.log(err))
+}

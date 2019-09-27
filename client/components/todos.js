@@ -5,24 +5,20 @@ import {
   deletedSingleTodo,
   createSingleTodo
 } from '../reducers/todosReducer'
+import {addTodoFirebase, removeTodoFirebase} from '../firebase'
 
 class Todos extends Component {
   constructor() {
     super()
-    this.counter = 1000
     this.onSubmit = this.onSubmit.bind(this)
   }
 
   onSubmit(evt) {
     evt.preventDefault()
-    // const todo = Object.fromEntries(new FormData(evt.target))
-    // console.dir(evt.target)
     const todo = {}
-    todo.id = this.counter++
     todo.title = evt.target[0].value
     todo.details = evt.target[1].value
-    // console.log(todo)
-    this.props.addTodo(todo)
+    addTodoFirebase(todo)
   }
 
   render() {
@@ -37,7 +33,14 @@ class Todos extends Component {
                 <div className="recipe-ingredients">{todo.details}</div>
               </div>
               <div className="recipe-delete">
-                <i className="material-icons">delete_outline</i>
+                <i
+                  className="material-icons"
+                  onClick={function() {
+                    removeTodoFirebase(todo.id)
+                  }}
+                >
+                  delete_outline
+                </i>
               </div>
             </div>
           ))}
