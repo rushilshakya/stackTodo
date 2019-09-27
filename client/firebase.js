@@ -1,5 +1,21 @@
 import store from './store'
 import {createdSingleTodo, deletedSingleTodo} from './reducers/todosReducer'
+import firebase from 'firebase'
+
+//setup
+const firebaseConfig = {
+  apiKey: 'AIzaSyBCBBBIIxYR3DGH-THrqlpsPtvQJvgK6i8',
+  authDomain: 'todo-pwa-b23f4.firebaseapp.com',
+  databaseURL: 'https://todo-pwa-b23f4.firebaseio.com',
+  projectId: 'todo-pwa-b23f4',
+  storageBucket: 'todo-pwa-b23f4.appspot.com',
+  messagingSenderId: '135069503114',
+  appId: '1:135069503114:web:6f2b4aa22e872bb1ffe773',
+  measurementId: 'G-Q1YBRZHFL1'
+}
+firebase.initializeApp(firebaseConfig)
+// firebase.analytics()
+const db = firebase.firestore()
 
 // enable offline data
 db.enablePersistence().catch(function(err) {
