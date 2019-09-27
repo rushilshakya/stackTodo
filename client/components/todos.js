@@ -13,22 +13,6 @@ class Todos extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  componentDidMount() {
-    // real-time listener
-    db.collection('todos').onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
-        let todo = change.doc.data()
-        todo.id = change.doc.id
-        if (change.type === 'added') {
-          this.props.addTodo(todo)
-        }
-        if (change.type === 'removed') {
-          this.props.removeTodo(todo.id)
-        }
-      })
-    })
-  }
-
   onSubmit(evt) {
     evt.preventDefault()
     // const todo = Object.fromEntries(new FormData(evt.target))

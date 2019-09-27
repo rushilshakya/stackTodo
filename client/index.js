@@ -7,6 +7,9 @@ import store from './store'
 // establishes socket connection
 // import './socket'
 
+//establish firebase connection
+import './firebase'
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
