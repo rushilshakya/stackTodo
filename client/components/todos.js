@@ -8,12 +8,7 @@ import {
 import {addTodoFirebase, removeTodoFirebase} from '../firebase'
 
 class Todos extends Component {
-  constructor() {
-    super()
-    this.onSubmit = this.onSubmit.bind(this)
-  }
-
-  onSubmit(evt) {
+  onSubmit = evt => {
     evt.preventDefault()
     const todo = {}
     todo.title = evt.target[0].value
