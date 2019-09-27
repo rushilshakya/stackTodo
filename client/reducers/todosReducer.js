@@ -27,12 +27,12 @@ const singleTodoNotFound = message => ({
   message
 })
 //one todo created
-const createdSingleTodo = todo => ({
+export const createdSingleTodo = todo => ({
   type: CREATED_SINGLE_TODO,
   todo
 })
 //todo deleted
-const deletedSingleTodo = todoId => ({
+export const deletedSingleTodo = todoId => ({
   type: DELETED_SINGLE_TODO,
   todoId
 })
@@ -90,7 +90,7 @@ export const updateSingleTodo = todo => {
 //INITIAL STATE
 const initialState = {
   all: [],
-  single: {students: []},
+  single: {},
   status: '',
   message: ''
 }
@@ -102,7 +102,7 @@ export const todosReducer = (state = initialState, action) => {
       return {
         ...state,
         all: action.todos,
-        single: {students: []},
+        single: {},
         status: '',
         message: ''
       }
