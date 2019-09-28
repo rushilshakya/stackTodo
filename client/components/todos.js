@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import contentEditable from './contentEditable'
 import {
   createdSingleTodo,
   deletedSingleTodo,
@@ -16,7 +17,7 @@ class Todos extends Component {
     evt.preventDefault()
     const todo = {}
     todo.title = evt.target[0].value
-    todo.details = evt.target[1].value
+    todo.details = evt.target[1].value.length
     todo.done = false
     addTodoFirebase(todo)
   }
@@ -27,8 +28,12 @@ class Todos extends Component {
     editTodoFirebase(toggledTodo)
     // console.log('toggling')
   }
+  onSave = editedTodo => {
+    editTodoFirebase(editedTodo)
+  }
 
   render() {
+    let EditableDiv = contentEditable('div')
     return (
       <React.Fragment>
         <div className="recipes container grey-text text-darken-1">
@@ -36,8 +41,20 @@ class Todos extends Component {
             <div key={todo.id} className="card-panel recipe white row">
               <img src="/img/dish.png" alt="recipe thumb" />
               <div className="recipe-details">
-                <div className="recipe-title">{todo.title}</div>
-                <div className="recipe-ingredients">{todo.details}</div>
+                <EditableDiv
+                  className="recipe-title"
+                  value={todo.title}
+                  onSave={value => {
+                    this.onSave({id: todo.id, title: value})
+                  }}
+                />
+                <EditableDiv
+                  className="recipe-ingredients"
+                  value={todo.details}
+                  onSave={value => {
+                    this.onSave({id: todo.id, details: value})
+                  }}
+                />
               </div>
               <div className="recipe-delete">
                 <i
