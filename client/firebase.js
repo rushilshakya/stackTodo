@@ -1,5 +1,9 @@
 import store from './store'
-import {createdSingleTodo, deletedSingleTodo} from './reducers/todosReducer'
+import {
+  createdSingleTodo,
+  deletedSingleTodo,
+  updatedSingleTodo
+} from './reducers/todosReducer'
 import firebase from 'firebase'
 
 //setup
@@ -35,9 +39,10 @@ db.collection('todos').onSnapshot(snapshot => {
     todo.id = change.doc.id
     if (change.type === 'added') {
       store.dispatch(createdSingleTodo(todo))
-    }
-    if (change.type === 'removed') {
+    } else if (change.type === 'removed') {
       store.dispatch(deletedSingleTodo(todo.id))
+    } else if (change.type === 'modified') {
+      store.dispatch(updatedSingleTodo(todo))
     }
   })
 })
@@ -54,5 +59,16 @@ export const removeTodoFirebase = todoId => {
   db.collection('todos')
     .doc(todoId)
     .delete()
+    .catch(err => console.log(err))
+}
+
+//editing firebase
+export const editTodoFirebase = todo => {
+  const editedTodo = {...todo}
+  const id = editedTodo.id
+  delete editedTodo.id
+  db.collection('todos')
+    .doc(id)
+    .update(editedTodo)
     .catch(err => console.log(err))
 }

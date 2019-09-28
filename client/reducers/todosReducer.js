@@ -37,7 +37,7 @@ export const deletedSingleTodo = todoId => ({
   todoId
 })
 //todo updated
-const updatedSingleTodo = todo => ({type: UPDATED_SINGLE_TODO, todo})
+export const updatedSingleTodo = todo => ({type: UPDATED_SINGLE_TODO, todo})
 //creating status actions
 const statusUpdate = (statusCd, message) => ({
   type: statusCd,
@@ -119,7 +119,7 @@ export const todosReducer = (state = initialState, action) => {
       return {
         ...state,
         all: withUpdatedTodo,
-        single: action.todo,
+        single: {},
         status: '',
         message: ''
       }

@@ -5,7 +5,11 @@ import {
   deletedSingleTodo,
   createSingleTodo
 } from '../reducers/todosReducer'
-import {addTodoFirebase, removeTodoFirebase} from '../firebase'
+import {
+  addTodoFirebase,
+  removeTodoFirebase,
+  editTodoFirebase
+} from '../firebase'
 
 class Todos extends Component {
   onSubmit = evt => {
@@ -13,7 +17,15 @@ class Todos extends Component {
     const todo = {}
     todo.title = evt.target[0].value
     todo.details = evt.target[1].value
+    todo.done = false
     addTodoFirebase(todo)
+  }
+
+  toggleDone = todo => {
+    const toggledTodo = {...todo}
+    toggledTodo.done = !toggledTodo.done
+    editTodoFirebase(toggledTodo)
+    // console.log('toggling')
   }
 
   render() {
@@ -30,11 +42,32 @@ class Todos extends Component {
               <div className="recipe-delete">
                 <i
                   className="material-icons"
-                  onClick={function() {
+                  onClick={() => {
                     removeTodoFirebase(todo.id)
                   }}
                 >
                   delete_outline
+                </i>
+                {/* <i
+                  className="material-icons"
+                  onClick={() => {
+                    editTodoFirebase(todo)
+                  }}
+                >
+                  edit_outline
+                </i> */}
+                <i
+                  className="material-icons"
+                  onClick={() => {
+                    this.toggleDone(todo)
+                  }}
+                >
+                  {/* check_circle */}
+                  {todo.done ? (
+                    <div>check_circle</div>
+                  ) : (
+                    <div>check_circle_outline</div>
+                  )}
                 </i>
               </div>
             </div>
