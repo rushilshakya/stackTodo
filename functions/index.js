@@ -8,7 +8,7 @@ admin.initializeApp(functions.config().firebase)
 const db = admin.firestore()
 const messaging = admin.messaging()
 const userToken =
-  'cQF36MK6-Pde2mfblBWRU8:APA91bHu5MWI-Afzae17j5lqxFD1E2kyHruI_ICmAl8abntEVih-TpDHeXDl-bz-G-pLX4KCt_1n0c75waN26W8KZtQWYjwngtkzCcD3LQv9voL5IScrijMIP1taIsjC7eTCuSX-5JPn'
+  'dseaFBZ5-jC3TOSp3lzOrR:APA91bHAA8-jtU_kwD4xX4TvsJ4RIc-EIv09PN3IojGTXnB-k2bCpCKx_NuUQM9D1F4AOqTQ4wnuGuwy3Fqxs9ecpYE_bV1TZN9fWXyGpgdlUUlfXsuF4XDZaN6XudTsDSoFCQZ-RRJh'
 
 // exports.sendMessage = functions.firestore
 //   .document('todos/{todoId}')
