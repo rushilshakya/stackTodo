@@ -20,6 +20,46 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 // firebase.analytics()
 const db = firebase.firestore()
+const messaging = firebase.messaging()
+navigator.serviceWorker
+  .register('./serviceWorker.js')
+  .then(registration => messaging.useServiceWorker(registration))
+messaging.usePublicVapidKey(
+  'BI2LNVVMi3LRhsceua9iuQW34nGB0F8ASgcm1JUQhxmjBkhDffPnI_7Q60bD7FXz7QvdSOcyR4paW9JfilcKWoQ'
+)
+
+Notification.requestPermission().then(permission => {
+  if (permission === 'granted') {
+    console.log('Notification permission granted.')
+    // TODO(developer): Retrieve an Instance ID token for use with FCM.
+    // Get Instance ID token. Initially this makes a network call, once retrieved
+    // subsequent calls to getToken will return from cache.
+    messaging
+      .getToken()
+      .then(currentToken => {
+        if (currentToken) {
+          console.log('token received ', currentToken)
+          // sendTokenToServer(currentToken);
+          // updateUIForPushEnabled(currentToken);
+        } else {
+          // Show permission request.
+          console.log(
+            'No Instance ID token available. Request permission to generate one.'
+          )
+          // Show permission UI.
+          // updateUIForPushPermissionRequired()
+          // setTokenSentToServer(false)
+        }
+      })
+      .catch(err => {
+        console.log('An error occurred while retrieving token. ', err)
+        // showToken('Error retrieving Instance ID token. ', err)
+        // setTokenSentToServer(false)
+      })
+  } else {
+    console.log('Unable to get permission to notify.')
+  }
+})
 
 // enable offline data
 db.enablePersistence().catch(function(err) {
