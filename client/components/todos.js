@@ -66,7 +66,7 @@ class Todos extends Component {
               </div>
               <div className="recipe-delete">
                 <DatePicker
-                  selected={todo.dueAt ? todo.dueAt.toDate() : new Date()}
+                  selected={todo.dueAt ? todo.dueAt.toDate() : ''}
                   onChange={selectedDate =>
                     this.handleDateChange(selectedDate, todo.id)
                   } //only when value has changed
