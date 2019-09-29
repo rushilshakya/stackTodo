@@ -26,6 +26,7 @@ class Todos extends Component {
     todo.details = evt.target[1].value
     todo.done = false
     todo.createdAt = new Date()
+    todo.notified = false
     addTodoFirebase(todo)
   }
 
@@ -42,7 +43,9 @@ class Todos extends Component {
     editTodoFirebase({id, dueAt: selectedDate})
   }
 
-  toggleDateView = todoId => this.setState({[todoId]: !this.state[todoId]})
+  // toggleDateView = todoId => this.setState({[todoId]: !this.state[todoId]})
+  toggleDateView = todoId =>
+    this.setState(prevState => ({[todoId]: !prevState[todoId]}))
 
   render() {
     let EditableDiv = contentEditable('div')
