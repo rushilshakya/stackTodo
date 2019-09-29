@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import contentEditable from './contentEditable'
 import {
   createdSingleTodo,
@@ -13,12 +15,17 @@ import {
 } from '../firebase'
 
 class Todos extends Component {
+  constructor() {
+    super()
+    this.state = {}
+  }
   onSubmit = evt => {
     evt.preventDefault()
     const todo = {}
     todo.title = evt.target[0].value
-    todo.details = evt.target[1].value.length
+    todo.details = evt.target[1].value
     todo.done = false
+    todo.createdAt = new Date()
     addTodoFirebase(todo)
   }
 
@@ -26,11 +33,16 @@ class Todos extends Component {
     const toggledTodo = {...todo}
     toggledTodo.done = !toggledTodo.done
     editTodoFirebase(toggledTodo)
-    // console.log('toggling')
   }
-  onSave = editedTodo => {
-    editTodoFirebase(editedTodo)
+
+  onSave = editedTodo => editTodoFirebase(editedTodo)
+
+  handleDateChange = (selectedDate, id) => {
+    // this.toggleDateView(id)
+    editTodoFirebase({id, dueAt: selectedDate})
   }
+
+  toggleDateView = todoId => this.setState({[todoId]: !this.state[todoId]})
 
   render() {
     let EditableDiv = contentEditable('div')
@@ -44,24 +56,38 @@ class Todos extends Component {
                 <EditableDiv
                   className="recipe-title"
                   value={todo.title}
-                  onSave={value => {
-                    this.onSave({id: todo.id, title: value})
-                  }}
+                  onSave={value => this.onSave({id: todo.id, title: value})}
                 />
                 <EditableDiv
                   className="recipe-ingredients"
                   value={todo.details}
-                  onSave={value => {
-                    this.onSave({id: todo.id, details: value})
-                  }}
+                  onSave={value => this.onSave({id: todo.id, details: value})}
                 />
               </div>
               <div className="recipe-delete">
+                <DatePicker
+                  selected={todo.dueAt ? todo.dueAt.toDate() : new Date()}
+                  onChange={selectedDate =>
+                    this.handleDateChange(selectedDate, todo.id)
+                  } //only when value has changed
+                  popperPlacement="left-start"
+                  open={this.state[todo.id]}
+                  onClickOutside={() => this.toggleDateView(todo.id)}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={15}
+                  timeCaption="time"
+                  dateFormat="MM d, yy h:mm aa"
+                />
                 <i
                   className="material-icons"
-                  onClick={() => {
-                    removeTodoFirebase(todo.id)
-                  }}
+                  onClick={() => this.toggleDateView(todo.id)}
+                >
+                  calendar_today
+                </i>
+                <i
+                  className="material-icons"
+                  onClick={() => removeTodoFirebase(todo.id)}
                 >
                   delete_outline
                 </i>
@@ -75,11 +101,8 @@ class Todos extends Component {
                 </i> */}
                 <i
                   className="material-icons"
-                  onClick={() => {
-                    this.toggleDone(todo)
-                  }}
+                  onClick={() => this.toggleDone(todo)}
                 >
-                  {/* check_circle */}
                   {todo.done ? (
                     <div>check_circle</div>
                   ) : (
