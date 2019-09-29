@@ -38,10 +38,9 @@ messaging
   .catch(err => console.log('error is ', err))
 
 messaging.onMessage(payload => {
-  console.log('message is ', payload)
   toasty({
-    text: 'This is a toast',
-    duration: 3000,
+    text: payload.notification.title + ' ' + payload.notification.body,
+    duration: 5000,
     newWindow: true,
     close: true,
     gravity: 'top', // `top` or `bottom`
