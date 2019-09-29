@@ -17,9 +17,8 @@ const userToken =
 const projectId = process.env.GCLOUD_PROJECT
 const region = 'us-central1'
 
-exports.reply = functions.https.onRequest((req, res) => {
+exports.reply = functions.https.onRequest(async (req, res) => {
   let isValid = true
-  console.log(req.body.Body)
 
   // Only validate that requests came from Twilio when the function has been
   // deployed to production.
@@ -39,11 +38,20 @@ exports.reply = functions.https.onRequest((req, res) => {
     return
   }
 
+  const question = req.body.Body.trim().toLowerCase()
+  console.log(question)
+  console.log('going to query')
+
+  let answer = await getQueriedTasks(question)
+  console.log('back from query, answer is ', answer)
+
   // Prepare a response to the SMS message
   const response = new MessagingResponse()
 
   // Add text to the response
-  response.message('Hello from Google Cloud Functions!')
+  // response.message('Hello from Google Cloud Functions!')
+
+  response.message(answer)
 
   // Send the response
   res
@@ -51,6 +59,44 @@ exports.reply = functions.https.onRequest((req, res) => {
     .type('text/xml')
     .end(response.toString())
 })
+
+const getQueriedTasks = async question => {
+  console.log('inside get queried tasks')
+  let answer = ''
+  let queryResult
+  const now = admin.firestore.Timestamp.now()
+
+  const queryPast = db
+    .collection('todos')
+    .where('dueAt', '<=', now)
+    .where('done', '==', false)
+
+  const queryNext = db
+    .collection('todos')
+    .where('dueAt', '>', now)
+    .where('done', '==', false)
+
+  if (question === 'past') {
+    console.log('quering past')
+    queryResult = await queryPast.get()
+    if (queryResult.size < 1) return 'you have no past due tasks'
+  } else if (question === 'next') {
+    console.log('quering next')
+    queryResult = await queryNext.get()
+    if (queryResult.size < 1) return 'you have no upcoming tasks'
+  } else {
+    console.log('returning help')
+    return 'please ask for past or next'
+  }
+
+  queryResult.forEach(task => {
+    const {title, dueAt} = task.data()
+    answer += title + '-' + dueAt.toDate().toLocaleString() + '\n'
+  })
+  answer = answer.trim()
+
+  return answer
+}
 
 // exports.sendMessage = functions.firestore
 //   .document('todos/{todoId}')
