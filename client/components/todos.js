@@ -3,11 +3,7 @@ import {connect} from 'react-redux'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import contentEditable from './contentEditable'
-import {
-  createdSingleTodo,
-  deletedSingleTodo,
-  createSingleTodo
-} from '../reducers/todosReducer'
+import {createdSingleTodo, deletedSingleTodo} from '../reducers/todosReducer'
 import {
   addTodoFirebase,
   removeTodoFirebase,

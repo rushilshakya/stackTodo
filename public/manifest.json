@@ -22,5 +22,6 @@
       "type": "image/png",
       "sizes": "512x512"
     }
-  ]
+  ],
+  "gcm_sender_id": "135069503114"
 }
