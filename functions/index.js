@@ -42,18 +42,22 @@ exports.taskRunner = functions.pubsub
 
     tasks.forEach(task => {
       const {title, dueAt} = task.data()
-      let payload = {
-        notification: {
-          title,
-          body: 'is due at ' + dueAt.toDate().toLocaleString()
-        }
-      }
-      messaging
-        .sendToDevice(userToken, payload)
-        .then(res => console.log('sent ', res))
-        .catch(e => console.log('error ', e))
+      sendFCM({title, dueAt})
     })
   })
+
+const sendFCM = message => {
+  let payload = {
+    notification: {
+      title: message.title,
+      body: 'is dues at ' + message.dueAt.toDate().toLocaleString()
+    }
+  }
+  messaging
+    .sendToDevice(userToken, payload)
+    .then(res => console.log('sent ', res))
+    .catch(e => console.log('error ', e))
+}
 
 exports.helloWorld = functions.https.onRequest((request, response) => {
   response.send('Hello from Firebase!')
