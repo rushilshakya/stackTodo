@@ -10,14 +10,14 @@ const Navbar = () => {
           <a href="/">
             A Better<span>TODO</span>
           </a>
-          <span className="right grey-text text-darken-1">
+          {/* <span className="right grey-text text-darken-1">
             <i
               className="material-icons sidenav-trigger"
               data-target="side-menu"
             >
               menu
             </i>
-          </span>
+          </span> */}
         </div>
       </nav>
 

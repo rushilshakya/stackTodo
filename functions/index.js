@@ -12,7 +12,7 @@ admin.initializeApp(functions.config().firebase)
 const db = admin.firestore()
 const messaging = admin.messaging()
 const userToken =
-  'cZ3z4dqlewAg33zRlpV3ih:APA91bGnx3pXRWxO-KDQc7CcLWsMLvT94nTXYeyJmFVL026n3x3ICrjigKtyqW-DErE0gClGMbVaXvfeqGI-ACuqOFMY93tkdXqIeEUcA5XXJWNYIC5mn4Uj0GxJ8ZqK7B4fMQO9P6jQ'
+  'cjo5iy0jUdyKiO5Afaz-IV:APA91bHyF_y_8J3q7ia5W61O4rmbqf498QOqXIiafisVFUs26lEP3_7GwbssHNVVt5m_xWEJAQUNkqA1ioqRf_8zy3dnx8bbI1LQdIp-isqSbQCXPOwwrohg56u_s-ShoFIELXKZaH58'
 
 const projectId = process.env.GCLOUD_PROJECT
 const region = 'us-central1'
