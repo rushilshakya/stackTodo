@@ -98,14 +98,14 @@ const getQueriedTasks = async question => {
   return answer
 }
 
-// exports.sendMessage = functions.firestore
-//   .document('todos/{todoId}')
-//   .onCreate(async (change, context) => {
-//     // console.log(change.data())
-//     const docId = context.params.todoId
-//     const productRef = db.collection('todos').doc(docId)
-//     return productRef.update({message: 'functions work'})
-//   })
+exports.sendMessage = functions.firestore
+  .document('todos/{todoId}')
+  .onCreate(async (change, context) => {
+    // console.log(change.data())
+    const docId = context.params.todoId
+    const productRef = db.collection('todos').doc(docId)
+    return productRef.update({done: false, notified: false})
+  })
 
 // exports.sendReminder = functions.pubsub
 //   .schedule('every friday 05:00')
